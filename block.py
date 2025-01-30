@@ -1,25 +1,5 @@
 import time
 
-
-def mine_block(last_block, data):
-    """
-    Mine a block on the given last_block and data.
-    """
-    timestamp = time.time_ns()
-    last_hash = last_block.hash
-    hash = f'{timestamp}-{last_hash}'
-
-    return Block(timestamp, last_hash, hash, data)
-
-
-def genesis():
-    """
-    Generate the genesis block.
-    """
-    return Block(1, 'genesis_last_hash', 'genesis_hash', [])
-
-
-
 class Block:
     """
     Block: a unit of storage
@@ -38,7 +18,25 @@ class Block:
             f'hash: {self.hash}, '
             f'data: {self.data}' 
         )
-    
+
+    @staticmethod
+    def mine_block(last_block, data):
+        """
+        Mine a block on the given last_block and data.
+        """
+        timestamp = time.time_ns()
+        last_hash = last_block.hash
+        hash = f'{timestamp}-{last_hash}'
+
+        return Block(timestamp, last_hash, hash, data)
+
+    @staticmethod
+    def genesis():
+        """
+        Generate the genesis block.
+        """
+        return Block(1, 'genesis_last_hash', 'genesis_hash', [])
+
 def main():
     genesis_block = genesis()
     block = mine_block(genesis_block, 'foo')
