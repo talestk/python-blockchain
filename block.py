@@ -38,8 +38,8 @@ class Block:
         return Block(1, 'genesis_last_hash', 'genesis_hash', [])
 
 def main():
-    genesis_block = genesis()
-    block = mine_block(genesis_block, 'foo')
+    genesis_block = Block.genesis()
+    block = Block.mine_block(genesis_block, 'foo')
     print(block)
 
 if __name__ == '__main__':
