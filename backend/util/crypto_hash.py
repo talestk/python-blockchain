@@ -11,11 +11,11 @@ def crypto_hash(*args):
     # This way we can get the same hash for the same parameters in different  order
     # Note the use of lambda to to get the string representation of each argument
     stringified_args = sorted(map(lambda data: json.dumps(data), args))
-    print(f'stringified_args: {stringified_args}')
+    #print(f'stringified_args: {stringified_args}')
 
     joined_data = ''.join(stringified_args)
 
-    print(f'joined_data: {joined_data}')
+    #print(f'joined_data: {joined_data}')
 
     return hashlib.sha256(joined_data.encode('utf-8')).hexdigest()
 
