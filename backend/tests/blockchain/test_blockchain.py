@@ -1,3 +1,5 @@
+import pytest
+
 from backend.blockchain.blockchain import Blockchain
 from backend.blockchain.block import GENESIS_DATA
 
@@ -13,3 +15,21 @@ def test_add_block():
 
     # assert that the last added data to the chain matches {data}
     assert blockchain.chain[-1].data == data
+
+@pytest.fixture
+def block_chain_three_blocks():
+    blockchain = Blockchain()
+    
+    for i in range(3):
+        blockchain.add_block(i)
+    
+    return blockchain
+
+def test_is_valid_chain(block_chain_three_blocks):
+    Blockchain.is_valid_chain(block_chain_three_blocks.chain)
+
+def test_is_valid_chain_bad_genesis(block_chain_three_blocks):
+    block_chain_three_blocks.chain[0].hash = 'evil _hash'
+
+    with pytest.raises(Exception, match='genesis block must be valid'):
+        Blockchain.is_valid_chain(block_chain_three_blocks.chain)
