@@ -21,3 +21,13 @@ Make sure to activate the virtual environment.
 ```
 python -m backend.app
 ```
+
+**File with pubnub keys**
+
+File should be named and be on the backend folder:
+```
+pubnub_keys.txt
+```
+Content of the file should respect:
+- first line should be the subscriber key from pubnub.com
+- second line should be the publisher key
