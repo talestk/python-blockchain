@@ -31,3 +31,11 @@ pubnub_keys.txt
 Content of the file should respect:
 - first line should be the subscriber key from pubnub.com
 - second line should be the publisher key
+
+**Run a peer instance**
+
+Make sure to activate the virtual environment.
+
+```
+export PEER=True && python -m backend.app
+```
