@@ -7,3 +7,4 @@ def test_hex_to_binary():
 
      assert int(binary_number, 2) == original_number
 
+
