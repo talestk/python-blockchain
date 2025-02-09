@@ -57,6 +57,25 @@ class Transaction:
 
         self.input = self.create_input(sender_wallet, self.output)
         
+    @staticmethod
+    def is_valid_transaction(transaction):
+        """
+        Validate a transaction.
+        Raise an exception for invalid transactions.
+        """
+        output_total = sum(transaction.output.values())
+
+        if transaction.input['amount'] != output_total:
+            raise Exception('Invalid transaction output values')
+        
+        if not Wallet().verify(
+            transaction.input['public_key'],
+            transaction.output,
+            transaction.input['signature']
+        ):
+            raise Exception('Invalid signature')
+
+
 
 def main():
     transaction = Transaction(Wallet(), 'recipient', 15)
