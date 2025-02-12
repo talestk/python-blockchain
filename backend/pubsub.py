@@ -18,12 +18,11 @@ file.close()
 pnconfig = PNConfiguration()
 pnconfig.subscribe_key = lines[0]
 pnconfig.publish_key = lines[1]
-pubnub = PubNub(pnconfig)
 
 CHANNELS = {
     'TEST': 'TEST',
     'BLOCK': 'BLOCK',
-    'TRANSACTION': 'TRANSACTIONS'
+    'TRANSACTION': 'TRANSACTION'
 }
 
 class Listener(SubscribeCallback):
@@ -66,10 +65,7 @@ class PubSub():
         """
         Publish the message object to the channel.
         """
-        self.pubnub.unsubscribe().channels([channel]).execute()
         self.pubnub.publish().channel(channel).message(message).sync()
-        self.pubnub.subscribe().channels([channel]).execute()
-        #self.pubnub.publish().channel(channel).message(message).sync()
 
     def broadcast_block(self, block):
         """

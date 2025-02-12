@@ -17,7 +17,7 @@ class Transaction:
             output=None, 
             input=None
         ):
-        self.id = str(uuid.uuid4())[0:8]
+        self.id = id or str(uuid.uuid4())[0:8]
         self.output = output or self.create_output(sender_wallet, recipient, amount)
         self.input = input or self.create_input(sender_wallet, self.output)
 
@@ -61,7 +61,7 @@ class Transaction:
             self.output[recipient] = amount
 
         self.output[sender_wallet.address] = \
-        self.output[sender_wallet.address] - amount
+            self.output[sender_wallet.address] - amount
 
         self.input = self.create_input(sender_wallet, self.output)
 
