@@ -95,3 +95,22 @@ def test_reward_transaction():
 
     assert transaction.input == MINING_REWARD_INPUT
     assert transaction.output[miner_wallet.address] == MINING_REWARD
+
+def test_valid_reward_transaction():
+    reward_transaction = Transaction.reward_transaction(Wallet())
+    Transaction.is_valid_transaction(reward_transaction)
+
+def test_invalid_reward_transaction_extra_recipient():
+    reward_transaction = Transaction.reward_transaction(Wallet())
+    reward_transaction.output['extra_recipient'] = 60
+
+    with pytest.raises(Exception, match='Invalid mining reward'):
+        Transaction.is_valid_transaction(reward_transaction)
+
+def test_invalid_reward_transaction_invalid_amount():
+    miner_wallet = Wallet()
+    reward_transaction = Transaction.reward_transaction(miner_wallet)
+    reward_transaction.output[miner_wallet.address] = 9001
+    
+    with pytest.raises(Exception, match='Invalid mining reward'):
+        Transaction.is_valid_transaction(reward_transaction)
