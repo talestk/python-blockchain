@@ -1,6 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button } from 'react-bootstrap';
 import { MILLISECONDS_PY } from '../config';
 import Transaction from "./Transaction";
+
+function ToggleTransactionDisplay({block}) {
+    const [displayTransaction, setDisplayTransaction] = useState(false);
+    const { data } = block;
+
+    const toggleDisplayTransaction = () => {
+        setDisplayTransaction(!displayTransaction);
+    }
+
+    if (displayTransaction) {
+        return(
+            <div>
+                {
+                    data.map(transaction => (
+                        <div key={transaction.id}>
+                            <hr />
+                            <Transaction transaction={transaction} />
+                        </div>
+                    ))
+                }
+                <br />
+                <Button variant="danger" size="sm" onClick={toggleDisplayTransaction}>
+                    Show less
+                </Button>
+            </div>
+        )
+    }
+
+    return (
+        <div>
+            <br />
+            <Button variant="danger" size="sm" onClick={toggleDisplayTransaction}>
+                Show more
+            </Button>
+        </div>
+    )
+}
 
 function Block({block}) {
     const {timestamp, hash, data} = block;
@@ -11,17 +49,7 @@ function Block({block}) {
         <div className="Block">
             <div>Hash: {hashDisplay}</div>
             <div>Timestamp: {timestampDisplay}</div>
-            <div>
-                {
-                    data.map(transaction => (
-                        <div key={transaction.id}>
-                            <hr />
-                            <Transaction transaction={transaction} />
-
-                        </div>
-                    ))
-                }
-            </div>
+            <ToggleTransactionDisplay block={block} />
         </div>
     )
 }
