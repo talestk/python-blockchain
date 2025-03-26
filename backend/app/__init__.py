@@ -26,6 +26,19 @@ def reoute_default():
 def route_blockchain():
     return jsonify(blockchain.to_json())
 
+@app.route('/blockchain/range')
+def route_blockchain_range():
+    # http://localhost:5000/blockchain/range?start=2&end=5
+    start = int(request.args.get('start'))
+    end = int(request.args.get('end'))
+
+    # reverse it before returning since first one is always genesis
+    return jsonify(blockchain.to_json()[::-1][start:end])
+
+@app.route('/blockchain/length')
+def route_blockchain_length():
+    return jsonify(len(blockchain.chain))
+
 @app.route('/blockchain/mine')
 def route_blockchain_mine():
     transaction_data = transaction_pool.transaction_data()
