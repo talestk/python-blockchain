@@ -6,6 +6,7 @@ import './index.css';
 import App from './components/App';
 import Blockchain from './components/Blockchain';
 import ConductTransaction from './components/ConductTransaction';
+import TransactionPool from './components/TransactionPool';
 
 ReactDOM.createRoot(document.getElementById('root'))
     .render(
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root'))
                 <Route path='/' exact component={App} />
                 <Route path='/blockchain' component={Blockchain} />
                 <Route path='/conduct-transaction' component={ConductTransaction} />
+                <Route path='/transaction-pool' component={TransactionPool} />
             </Switch>
         </Router>
     );
